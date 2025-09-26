@@ -1,0 +1,32 @@
+# Group Project: RNA-Seq Workflow (Microbial, C. tropicalis)
+# Team members: Mia Gidley, Alyssa Moser, Samsus Saintloth, Lydia Dagne, Catherine Estrada
+
+## Data Retrieval
+# Navigate to project directory
+  prefetch SRR32854559
+  prefetch SRR33760505
+  prefetch SRR32455703
+  fasterq-dump SRR32455703 -O data/
+  fasterq-dump SRR32854559 -O data/
+  fasterq-dump SRR33760505 -O data/
+
+## Quality Control (QC)
+  fastqc SRR32455703_1.fastq
+  fastqc SRR32455703_2.fastq
+  fastqc SRR32854559_1.fastq
+  fastqc SRR32854559_2.fastq
+  fastqc SRR33760505_1.fastq
+  fastqc SRR33760505_2.fastq
+  
+  open SRR32455703_1_fastqc.html
+  open SRR32455703_2_fastqc.html
+  open SRR32854559_1_fastqc.html
+  open SRR32854559_2_fastqc.html
+  open SRR33760505_1_fastqc.html
+  open SRR33760505_2_fastqc.html
+
+## Read Cleaning
+
+## Alignment
+
+## Annotation and Quantification
