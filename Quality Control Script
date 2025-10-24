@@ -1,0 +1,8 @@
+#Samsus Saintloth
+# Run FastQC on all FASTQ files
+fastqc SRR32854559_1.fastq SRR32854559_2.fastq
+fastqc SRR33760505_1.fastq SRR33760505_2.fastq
+fastqc SRR32455703_1.fastq SRR32455703_2.fastq
+
+# aggregate QC reports
+multiqc .
