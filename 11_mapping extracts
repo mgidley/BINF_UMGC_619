@@ -1,0 +1,8 @@
+#Samsus
+import pandas as pd
+
+# Load counts file from featureCounts
+counts = pd.read_csv('counts.txt', sep='\t', comment='#')
+# The actual gene ids are in the 'Geneid' column
+top10 = counts.nlargest(10, 'SRR32455703')  # or whichever sample you used to define top10
+print(top10[['Geneid']])
