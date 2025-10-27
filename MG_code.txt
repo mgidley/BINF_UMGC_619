@@ -3,6 +3,9 @@
 
 ## Data Retrieval
 # Navigate to project directory
+cd CTropicalis/
+mkdir 00_rawdata
+cd 00_rawdata
   prefetch SRR32854559
   prefetch SRR33760505
   prefetch SRR32455703
@@ -45,6 +48,44 @@ fastp \
   -h SRR33760505_fastp.html -j SRR33760505_fastp.json \
   -q 20 -u 30 -l 50
 
+
 ## Alignment
+# Downloaded reference genome .fna from ncbi, renamed for simplicity
+conda install -c bioconda hisat2
+hisat2-build Candida_tropicalis.fa Ctrop_index
+
+hisat2 -x Ctrop_index \
+  -1 SRR32455703_1_clean.fastq \
+  -2 SRR32455703_2_clean.fastq \
+  -S SRR32455703.sam \
+  --summary-file SRR32455703_summary.txt
+
+hisat2 -x Ctrop_index \
+  -1 SRR32854559_1_clean.fastq \
+  -2 SRR32854559_2_clean.fastq \
+  -S SRR32854559.sam \
+  --summary-file SRR32854559_summary.txt
+
+hisat2 -x Ctrop_index \
+  -1 SRR33760505_1_clean.fastq \
+  -2 SRR33760505_2_clean.fastq \
+  -S SRR33760505.sam \
+  --summary-file SRR33760505_summary.txt
+
+# SAM to BAM
+samtools view -bS SRR32455703.sam > SRR32455703.bam
+samtools view -bS SRR32854559.sam > SRR32854559.bam
+samtools view -bS SRR33760505.sam > SRR33760505.bam
+
+# Sort
+samtools sort SRR32455703.bam -o SRR32455703_sorted.bam
+samtools sort SRR32854559.bam -o SRR32854559_sorted.bam
+samtools sort SRR33760505.bam -o SRR33760505_sorted.bam
 
 ## Annotation and Quantification
+# Get .gff file
+featureCounts -p -t exon -g gene_id \
+  -a Candida_tropicalis.gff \
+  -o gene_counts.txt \
+  SRR32455703_sorted.bam SRR32854559_sorted.bam SRR33760505_sorted.bam
+
