@@ -92,4 +92,3 @@ featureCounts -p -t exon -g gene_id \
 # Extract top 10 genes
 cat counts.txt | grep -v '^#' | sort -k7,7nr | head -n 10
 
-
