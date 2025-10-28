@@ -89,3 +89,7 @@ featureCounts -p -t exon -g gene_id \
   -o gene_counts.txt \
   SRR32455703_sorted.bam SRR32854559_sorted.bam SRR33760505_sorted.bam
 
+# Extract top 10 genes
+cat counts.txt | grep -v '^#' | sort -k7,7nr | head -n 10
+
+
